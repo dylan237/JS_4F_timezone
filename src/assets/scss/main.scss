@@ -1,0 +1,70 @@
+@import "config/_variables";
+@import "mixin/_mixin";
+@import "mixin/_btnhack";
+@import "mixin/_scrollbar";
+@import "extend/_clearfix";
+@import "extend/_positionCenter";
+
+@import "config/_reset";
+@import "config/_reboot";
+@import "config/_typography";
+@import "config/_breakpoint";
+
+@import 'utilities/_utilities';
+@import 'utilities/_hidetext';
+@import 'utilities/_clearfix';
+
+@import "components/_button";
+@import "components/_form";
+@import "components/_tables";
+
+#timeZone {
+  @extend %positonCenter;
+  width: 540px;
+}
+
+.title {
+  font-size: 72px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 25px;
+  border-top: 10px solid $primary-color;
+  border-bottom: 10px solid $primary-color;
+}
+.content {
+  border: 2px solid $primary-color;
+  &__item {
+    background-color: $second-color;
+    color: $primary-color;
+    border-bottom: 2px solid $primary-color;
+    padding: 0 20px;
+    @include flex(center, center);
+    
+    .information {
+      width: 50%;
+
+      &__title {
+        font-size: 36px;
+        font-weight: bold;
+      }
+      &__date {
+        font-size: 16px;
+        font-weight: bold;
+        font-style: italic;
+      }
+    }
+    .time {
+      width: 50%;
+      font-size: 72px;
+      font-weight: bold;
+      text-align: right;
+    }
+    &:nth-child(4n+1) {
+      background-color: $primary-color;
+      color: $second-color;
+    }
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
