@@ -30,11 +30,12 @@ header {
   width: 100%;
   height: 50px;
   @include flex(center, center);
-  padding: 15px 0;
+  margin: 25px 0;
 }
 
 #timeZone {
-  @extend %positonCenter;
+  // @extend %positonCenter;
+  margin: 0 auto; 
   width: 540px;
   min-height: 700px;
 }
@@ -47,10 +48,11 @@ header {
   border-top: 10px solid $primary-color;
   border-bottom: 10px solid $primary-color;
 }
+
 .content {
   border: 2px solid $primary-color;
-  overflow-y: auto;
   &__item {
+    position: relative;
     background-color: $second-color;
     color: $primary-color;
     border-bottom: 2px solid $primary-color;
@@ -75,6 +77,31 @@ header {
       font-size: 72px;
       font-weight: bold;
       text-align: right;
+    }
+    .delete {
+      transition: all .5s ease;
+      width: 25px;
+      height: 25px;
+      background-color: rgb(252, 86, 86);
+      position: absolute;
+      right: -27px;
+      top: -2px;
+      @include flex(center, center);
+      &::before, &::after {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 15px;
+        background-color: $second-color;
+        position: absolute;
+      }
+      &::before {
+        transform: rotate(45deg);
+      }
+      &::after {
+        transform: rotate(-45deg);
+
+      }
     }
     &:nth-child(4n+1) {
       background-color: $primary-color;
