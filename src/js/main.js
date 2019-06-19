@@ -8,11 +8,16 @@ class TimeZone {
     minute: 'numeric',
     // second: 'numeric',
   }) {
-    this.localStorageCaptions = ['userSelectedData', 'supportedTimezoneData', 'userLangData'];
+    // 設定localStorage資料標題
+    this.localStorage = {
+      userSelectedTimezone: '_usz',
+      supportedTimezone: '_spz',
+      userLang: '_usl',
+    },
     this.supportedLanguages = ['en', 'zh-TW', 'ja-JP-u-ca-japanese', 'ko-KR']; // #langSelector選單資料
-    this.supportedTimezone = this.getLocalStorage(this.localStorageCaptions)[1] || ['Europe/London', 'Australia/Sydney', 'Asia/Bangkok', 'America/New_york', 'Pacific/Chatham']; // #userSelectedTimezone選單資料
-    this.userSelectedLang = this.getLocalStorage(this.localStorageCaptions)[2] || lang || 'en'; // 使用者選擇語言
-    this.userSelectedTimezone = this.getLocalStorage(this.localStorageCaptions)[0] || ['Asia/Taipei']; // 使用者選取的所有地區，預設為台北時間
+    this.supportedTimezone = this.getLocalStorage(this.localStorage.supportedTimezone) || ['Europe/London', 'Australia/Sydney', 'Asia/Bangkok', 'America/New_york', 'Pacific/Chatham']; // #userSelectedTimezone選單資料
+    this.userSelectedLang = this.getLocalStorage(this.localStorage.userLang) || lang || 'en'; // 使用者選擇語言
+    this.userSelectedTimezone = this.getLocalStorage(this.localStorage.userSelectedTimezone) || ['Asia/Taipei']; // 使用者選取的所有地區，預設為台北時間
     this.toLocalStringConfig = config, // 預設的 toLocaleString() API參數
     this.dataCombine = []; // 將this.userSelectedTimezone與this.toLocalStringConfig合併
     this.timeStringData = []; // 由this.dataCombine透過toLocaleString() API所產生的資料陣列，為最後渲染到畫面的時間資料
@@ -94,7 +99,7 @@ class TimeZone {
     this.doms.langSelector.addEventListener('change', function(e){
       if (console) console.log("Current Language: " + e.target.value);
       self.userSelectedLang = e.target.value;
-      self.setLocalStorage(self.userSelectedTimezone, self.supportedTimezone, self.userSelectedLang);
+      self.setLocalStorage(self.localStorage.userLang, self.userSelectedLang);
       self.renderTimezone();
       self.renderZoneSelector();
     }, false);
@@ -112,7 +117,8 @@ class TimeZone {
         self.userSelectedTimezone.push(e.target.value);
       }
 
-      self.setLocalStorage(self.userSelectedTimezone, self.supportedTimezone, self.userSelectedLang);
+      self.setLocalStorage(self.localStorage.userSelectedTimezone, self.userSelectedTimezone);
+      self.setLocalStorage(self.localStorage.supportedTimezone, self.supportedTimezone);
       self.init();
       self.renderTimezone();
       self.renderZoneSelector();
@@ -120,8 +126,6 @@ class TimeZone {
   }
   // 初始化
   init() {
-    console.log(this.userSelectedTimezone);
-    
     // 將this.zone地區資料推送進this.toLocalStringConfig合併，並將新資料指向至this.dataCombine
     this.dataCombine = [];
     this.userSelectedTimezone.forEach((item) => {
@@ -256,7 +260,8 @@ class TimeZone {
           self.supportedTimezone.push(e.target.dataset.zone);
         }
 
-        self.setLocalStorage(self.userSelectedTimezone, self.supportedTimezone, self.userSelectedLang);
+        self.setLocalStorage(self.localStorage.userSelectedTimezone, self.userSelectedTimezone);
+        self.setLocalStorage(self.localStorage.supportedTimezone, self.supportedTimezone);
         self.init();
         self.renderTimezone();
         self.renderZoneSelector();
@@ -289,7 +294,7 @@ class TimeZone {
           return '查塔姆';
           break;
       }
-    } else if(this.userSelectedLang === 'ja-JP-u-ca-japanese') {
+    } else if (this.userSelectedLang === 'ja-JP-u-ca-japanese') {
       switch(item) {
         case 'Asia/Taipei':
           return '台北';
@@ -310,7 +315,7 @@ class TimeZone {
           return 'チャタム';
           break;
       }
-    } else if(this.userSelectedLang === 'ko-KR') {
+    } else if (this.userSelectedLang === 'ko-KR') {
       switch(item) {
         case 'Asia/Taipei':
           return '타이페이';
@@ -334,19 +339,11 @@ class TimeZone {
     }
   }
   // LocalStorage
-  setLocalStorage(userSelectedTimezone, supportedTimezone, userLang) {
-    const userSelectedTimezoneData = JSON.stringify(userSelectedTimezone);
-    const supportedTimezoneData = JSON.stringify(supportedTimezone);
-    const userLangData = JSON.stringify(userLang);
-    localStorage.setItem('userSelectedData', userSelectedTimezoneData);
-    localStorage.setItem('supportedTimezoneData', supportedTimezoneData);
-    localStorage.setItem('userLangData', userLangData);
+  setLocalStorage(caption, data) {
+    localStorage.setItem(caption, JSON.stringify(data));
   }
-  getLocalStorage(data) {
-    const userSelectedTimezoneData = JSON.parse(localStorage.getItem(data[0]));
-    const supportedTimezoneData = JSON.parse(localStorage.getItem(data[1]));
-    const langData = JSON.parse(localStorage.getItem(data[2]));
-    return [userSelectedTimezoneData, supportedTimezoneData, langData];
+  getLocalStorage(caption) {
+    return JSON.parse(localStorage.getItem(caption));
   }
 }
 
