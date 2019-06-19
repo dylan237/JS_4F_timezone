@@ -153,7 +153,12 @@ class TimeZone {
 
       const timeZoneParentNode = document.createElement('div');
       timeZoneParentNode.classList.add('content__item');
-
+      
+      const getItemHour = item.replace(/.*\s+(\d{1,2})\:\d+/gm, `$1`);  // 取得小時數字
+      console.log(getItemHour);
+      
+      getItemHour >= 18 ? timeZoneParentNode.classList.add('night') : false;
+      
       if (this.userSelectedLang == 'en') {
         let newItem = item.split(',');
 
@@ -197,14 +202,14 @@ class TimeZone {
         let newItem = item.split(' ');
 
         // 翻譯地名
-        const KR = this.userSelectedTimezone.map((item) =>{
+        const TPE = this.userSelectedTimezone.map((item) =>{
           return this.multilanguage(item);
         })
 
         timeZoneParentNode.innerHTML = `
         <div class="information">
           <div class="information__title">
-            ${KR[index]}
+            ${TPE[index]}
           </div>
           <div class="information__date">
             ${newItem[0]}
