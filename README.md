@@ -1,7 +1,8 @@
 ## JS地下城練習 - 4F 時區
 
 [DEMO](https://dylan237.github.io/JS_4F_timezone/)  
-[Source Code](https://github.com/dylan237/JS_4F_timezone/blob/master/src/js/main.js)  
+[Source Code](https://github.com/dylan237/JS_4F_timezone/blob/master/src/js/main.js)
+[Blog紀錄](https://dylan237.github.io/js-4f-timezone.html#more)
 
 ## 使用技術
 - HTML
