@@ -26,6 +26,11 @@ header {
   background-color: $primary-color;
 }
 
+#zoneSelector {
+  width: 150px;
+  height: 30px;
+}
+
 .userSelectZone {
   width: 100%;
   height: 50px;
@@ -82,11 +87,15 @@ header {
       transition: all .5s ease;
       width: 25px;
       height: 25px;
-      background-color: rgb(252, 86, 86);
+      background-color: rgb(255, 163, 163);
       position: absolute;
       right: -27px;
       top: -2px;
+      cursor: pointer;
       @include flex(center, center);
+      &:hover {
+        background-color: rgb(252, 86, 86);
+      }
       &::before, &::after {
         content: '';
         display: block;
