@@ -10,8 +10,7 @@
 - Vanilla JS
 
 ## 學習
-- `Date.prototype.toLocaleString()`  
-[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString)  
+- `Date.prototype.toLocaleString()` [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString)  
 
 ## BOSS弱點
 
