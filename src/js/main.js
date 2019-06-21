@@ -157,7 +157,7 @@ class TimeZone {
       const getItemHour = item.replace(/.*\s+(\d{1,2})\:\d+/gm, `$1`);  // 取得小時數字
       console.log(getItemHour);
       
-      getItemHour >= 18 ? timeZoneParentNode.classList.add('night') : false;
+      getItemHour >= 18 || getItemHour <= 6 ? timeZoneParentNode.classList.add('night') : false;
       
       if (this.userSelectedLang == 'en') {
         let newItem = item.split(',');
